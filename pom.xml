@@ -9,6 +9,7 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
+        <kotlin_version>2.0.0</kotlin_version>
         <logback_version>1.4.14</logback_version>
         <slf4j_version>2.0.9</slf4j_version>
         <ktor_version>2.3.11</ktor_version>
@@ -37,7 +38,7 @@
             <plugin>
                 <groupId>org.jetbrains.kotlin</groupId>
                 <artifactId>kotlin-maven-plugin</artifactId>
-                <version>1.9.23</version>
+                <version>${kotlin_version}</version>
                 <executions>
                     <execution>
                         <id>compile</id>
@@ -145,7 +146,7 @@
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-test-junit5</artifactId>
-            <version>1.9.23</version>
+            <version>${kotlin_version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -157,7 +158,7 @@
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-stdlib</artifactId>
-            <version>1.9.23</version>
+            <version>${kotlin_version}</version>
         </dependency>
         <dependency>
             <groupId>io.ktor</groupId>
@@ -167,11 +168,6 @@
         <dependency>
             <groupId>io.ktor</groupId>
             <artifactId>ktor-server-netty-jvm</artifactId>
-            <version>${ktor_version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.ktor</groupId>
-            <artifactId>ktor-server-config-yaml-jvm</artifactId>
             <version>${ktor_version}</version>
         </dependency>
         <dependency>
