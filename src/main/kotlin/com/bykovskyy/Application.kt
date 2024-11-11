@@ -1,5 +1,6 @@
 package com.bykovskyy
 
+import com.bykovskyy.routes.configureSheetRouting
 import com.bykovskyy.routes.configureSpriteRouting
 import com.fasterxml.jackson.databind.SerializationFeature
 import io.ktor.http.*
@@ -34,5 +35,6 @@ fun Application.module() {
             call.respondText("Hello world!")
         }
     }
+    configureSheetRouting()
     configureSpriteRouting()
 }
