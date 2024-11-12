@@ -14,7 +14,7 @@ import javax.imageio.ImageIO
 
 fun Application.configureSpriteRouting() {
     routing {
-        post("/{sheetId}/sprites") {
+        post("/sheet/{sheetId}/sprites") {
             val sheetId = call.parameters["sheetId"] as String
             val spritesDir = "localStorage/${sheetId}/sprites"
             File(spritesDir).mkdirs()
@@ -45,7 +45,7 @@ fun Application.configureSpriteRouting() {
             call.respond(sprites)
         }
 
-        get("{sheetId}/sprites") {
+        get("/sheet/{sheetId}/sprites") {
             val sheetId = call.parameters["sheetId"] as String
             val page = call.request.queryParameters["page"]?.toIntOrNull()
             val limit = call.request.queryParameters["limit"]?.toIntOrNull()
@@ -58,7 +58,7 @@ fun Application.configureSpriteRouting() {
             }
         }
 
-        patch("{sheetId}/sprites/{id}") {
+        patch("/sheet/{sheetId}/sprites/{id}") {
             val sheetId = call.parameters["sheetId"] as String
             val spriteId = call.parameters["id"] as String
 
@@ -79,7 +79,7 @@ fun Application.configureSpriteRouting() {
             call.respond(HttpStatusCode.NoContent)
         }
 
-        delete("{sheetId}/sprites/{id}") {
+        delete("/sheet/{sheetId}/sprites/{id}") {
             val sheetId = call.parameters["sheetId"] as String
             val spriteId = call.parameters["id"] as String
 
