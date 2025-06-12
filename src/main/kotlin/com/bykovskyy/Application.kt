@@ -30,11 +30,6 @@ fun Application.module() {
             enable(SerializationFeature.INDENT_OUTPUT)
         }
     }
-    routing {
-        get("/") {
-            call.respondText("Hello world!")
-        }
-    }
     configureSheetRouting()
     configureSpriteRouting()
 }

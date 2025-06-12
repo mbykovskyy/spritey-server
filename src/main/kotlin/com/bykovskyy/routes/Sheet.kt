@@ -8,6 +8,7 @@ import io.ktor.server.application.*
 import io.ktor.server.request.receiveParameters
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import java.awt.Rectangle
 import java.util.UUID
 
 fun Application.configureSheetRouting() {
@@ -66,6 +67,19 @@ fun Application.configureSheetRouting() {
 
                 SheetStorage().store(newSheet)
                 call.respond(newSheet)
+            }
+        }
+
+        post("/sheet/{id}/compile") {
+            val sheetId = call.parameters["id"] as String
+            val sheet = SheetStorage().get(sheetId)
+
+            if (sheet === null) {
+                call.respond(HttpStatusCode.NotFound)
+            } else {
+                val params = call.receiveParameters()
+                val imageType = params["imageType"] ?: "png"
+                val metadataType = params["metadataType"] ?: "json"
             }
         }
     }

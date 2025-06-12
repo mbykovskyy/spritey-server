@@ -9,7 +9,7 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <kotlin_version>2.0.0</kotlin_version>
+        <kotlin_version>2.1.10</kotlin_version>
         <logback_version>1.4.14</logback_version>
         <slf4j_version>2.0.9</slf4j_version>
         <ktor_version>2.3.11</ktor_version>
@@ -159,6 +159,7 @@
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-stdlib</artifactId>
             <version>${kotlin_version}</version>
+            <classifier>sources</classifier>
         </dependency>
         <dependency>
             <groupId>io.ktor</groupId>
