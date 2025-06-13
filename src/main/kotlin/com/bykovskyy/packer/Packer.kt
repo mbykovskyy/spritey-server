@@ -1,5 +1,6 @@
 package com.bykovskyy.packer
 
+import com.bykovskyy.models.CompiledSheet
 import com.bykovskyy.models.CompiledSprite
 import com.bykovskyy.models.Dimension
 import com.bykovskyy.models.Point
@@ -53,14 +54,14 @@ fun getExpandStrategy(sheet: Sheet): ExpandStrategy {
     return ::expandToMaxDimensions
 }
 
-fun pack(sheet: Sheet, sprites: List<Sprite>): Dimension {
+fun pack(sheet: Sheet, sprites: List<Sprite>): CompiledSheet {
     require(sprites.isNotEmpty()) { "There are no sprites to pack into a sprite sheet." }
 
     var currentSheetSize = Dimension(0, 0)
     val maxSheetSize = Dimension(sheet.maxWidth, sheet.maxHeight)
     var freeZones = listOf<Rectangle>()
 
-    sprites.sortedByDescending { it.width }
+    val compiledSprites = sprites.sortedByDescending { it.width }
         .map { sprite ->
             var location = findLocation(freeZones, sprite.dimension)
 
@@ -82,5 +83,5 @@ fun pack(sheet: Sheet, sprites: List<Sprite>): Dimension {
             freeZones = recalculateZones(freeZones, compiledSprite.rectangle)
             compiledSprite
     }
-    return currentSheetSize
+    return CompiledSheet(sheet.id, currentSheetSize, sheet.backgroundColor, compiledSprites)
 }

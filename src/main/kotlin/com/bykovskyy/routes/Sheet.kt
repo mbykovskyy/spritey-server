@@ -2,13 +2,15 @@ package com.bykovskyy.routes
 
 import com.bykovskyy.models.Sheet
 import com.bykovskyy.models.findPowerOfTwo
+import com.bykovskyy.packer.pack
+import com.bykovskyy.storage.CompiledSheetStorage
 import com.bykovskyy.storage.SheetStorage
+import com.bykovskyy.storage.SpritesStorage
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.*
 import io.ktor.server.request.receiveParameters
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import java.awt.Rectangle
 import java.util.UUID
 
 fun Application.configureSheetRouting() {
@@ -80,6 +82,9 @@ fun Application.configureSheetRouting() {
                 val params = call.receiveParameters()
                 val imageType = params["imageType"] ?: "png"
                 val metadataType = params["metadataType"] ?: "json"
+
+                val compiledSheet = pack(sheet, SpritesStorage(sheetId).getAll())
+                CompiledSheetStorage().store(compiledSheet)
             }
         }
     }

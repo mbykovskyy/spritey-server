@@ -1,6 +1,9 @@
 package com.bykovskyy.models
 
-data class Sheet(
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class  Sheet(
     val id: String,
     val maxWidth: Int,
     val maxHeight: Int,

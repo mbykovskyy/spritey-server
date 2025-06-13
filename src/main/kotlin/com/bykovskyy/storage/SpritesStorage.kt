@@ -2,9 +2,7 @@ package com.bykovskyy.storage
 
 import com.bykovskyy.models.PaginatedSpriteList
 import com.bykovskyy.models.Sprite
-import com.fasterxml.jackson.databind.SerializationFeature
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import com.fasterxml.jackson.module.kotlin.readValue
+import kotlinx.serialization.json.Json
 import java.io.File
 
 
@@ -47,14 +45,14 @@ class SpritesStorage(private val sheetId: String) {
         val spritesJsonFile = File("localStorage/$sheetId/sprites.json")
 
         return if (spritesJsonFile.exists())
-            jacksonObjectMapper().readValue<ArrayList<Sprite>>(spritesJsonFile)
+            Json.decodeFromString<List<Sprite>>(spritesJsonFile.reader().use { it.readText() })
         else
             arrayListOf()
     }
 
     private fun store(sprites: List<Sprite>) {
-        jacksonObjectMapper()
-            .enable(SerializationFeature.INDENT_OUTPUT)
-            .writeValue(File("localStorage/$sheetId/sprites.json"), sprites)
+        File("localStorage/$sheetId/sprites.json").printWriter().use {
+            it.println(Json { prettyPrint = true }.encodeToString(sprites))
+        }
     }
 }

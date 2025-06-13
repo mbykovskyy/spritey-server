@@ -1,9 +1,7 @@
 package com.bykovskyy.storage
 
 import com.bykovskyy.models.Sheet
-import com.fasterxml.jackson.databind.SerializationFeature
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import com.fasterxml.jackson.module.kotlin.readValue
+import kotlinx.serialization.json.Json
 import java.io.File
 
 
@@ -12,7 +10,7 @@ class SheetStorage() {
         val sheetJsonFile = File("localStorage/$sheetId/sheet.json")
 
         return if (sheetJsonFile.exists())
-            jacksonObjectMapper().readValue<Sheet>(sheetJsonFile)
+            Json.decodeFromString<Sheet>(sheetJsonFile.reader().use { it.readText() })
         else
             null
     }
@@ -21,8 +19,8 @@ class SheetStorage() {
         val sheetDir = "localStorage/${sheet.id}"
         File(sheetDir).mkdirs()
 
-        jacksonObjectMapper()
-            .enable(SerializationFeature.INDENT_OUTPUT)
-            .writeValue(File("$sheetDir/sheet.json"), sheet)
+        File("$sheetDir/sheet.json").printWriter().use {
+            it.println(Json { prettyPrint = true }.encodeToString(sheet))
+        }
     }
 }
