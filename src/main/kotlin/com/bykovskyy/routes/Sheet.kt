@@ -88,6 +88,7 @@ fun Application.configureSheetRouting() {
                 val image = render(compiledSheet)
 
                 CompiledSheetStorage().store(compiledSheet, image)
+                call.respond(HttpStatusCode.NoContent)
             }
         }
     }
