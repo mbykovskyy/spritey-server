@@ -1,5 +1,6 @@
 package com.bykovskyy.routes
 
+import com.bykovskyy.image.render
 import com.bykovskyy.models.Sheet
 import com.bykovskyy.models.findPowerOfTwo
 import com.bykovskyy.packer.pack
@@ -84,7 +85,9 @@ fun Application.configureSheetRouting() {
                 val metadataType = params["metadataType"] ?: "json"
 
                 val compiledSheet = pack(sheet, SpritesStorage(sheetId).getAll())
-                CompiledSheetStorage().store(compiledSheet)
+                val image = render(compiledSheet)
+
+                CompiledSheetStorage().store(compiledSheet, image)
             }
         }
     }

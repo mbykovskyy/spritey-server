@@ -3,7 +3,9 @@ package com.bykovskyy.storage
 import com.bykovskyy.models.PaginatedSpriteList
 import com.bykovskyy.models.Sprite
 import kotlinx.serialization.json.Json
+import java.awt.Image
 import java.io.File
+import javax.imageio.ImageIO
 
 
 class SpritesStorage(private val sheetId: String) {
@@ -23,6 +25,10 @@ class SpritesStorage(private val sheetId: String) {
         val end = page * limit
         val normalizedEnd = if (end > sprites.size) sprites.size else end
         return PaginatedSpriteList(sprites.subList(start, normalizedEnd), sprites.size, start)
+    }
+
+    fun getImage(spriteId: String): Image {
+        return ImageIO.read(File("localStorage/$sheetId/sprites/$spriteId"))
     }
 
     fun add(sprites: List<Sprite>) {

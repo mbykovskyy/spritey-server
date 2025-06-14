@@ -79,7 +79,7 @@ fun pack(sheet: Sheet, sprites: List<Sprite>): CompiledSheet {
                 }
             }
 
-            val compiledSprite = CompiledSprite(sprite.name, location.x, location.y, sprite.width, sprite.height)
+            val compiledSprite = CompiledSprite(sprite.id, sprite.name, location.x, location.y, sprite.width, sprite.height)
             freeZones = recalculateZones(freeZones, compiledSprite.rectangle)
             compiledSprite
     }
